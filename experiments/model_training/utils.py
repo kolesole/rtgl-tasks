@@ -5,13 +5,13 @@ import numpy as np
 import pandas as pd
 import torch
 import yaml
-from predql.base import Table
+from rtgl.base import Table
 from relbench.base import TaskType
 from sklearn.preprocessing import LabelEncoder, MultiLabelBinarizer
 from torch_geometric.data import HeteroData
 from torch_geometric.loader import NeighborLoader
 
-from predql_tasks.base import PredQLBaseTask
+from rtgl_tasks.base import RTGLBaseTask
 
 
 def get_device() -> torch.device:
@@ -51,7 +51,7 @@ def patched_to_unix_time(ser: pd.Series) -> np.ndarray:
     return unix_time
 
 
-def get_transform(table, task: PredQLBaseTask):
+def get_transform(table, task: RTGLBaseTask):
     labels_list = table.df["label"].tolist()
     labels_stacked = np.array(labels_list)
     target_map = torch.from_numpy(labels_stacked)
@@ -69,7 +69,7 @@ def get_transform(table, task: PredQLBaseTask):
 
 
 def encode_labels(
-    task: PredQLBaseTask,
+    task: RTGLBaseTask,
     binarize: bool=False,
     encode: bool=False
 ) -> tuple[dict[str, Table], MultiLabelBinarizer | None, LabelEncoder | None]:
@@ -113,7 +113,7 @@ def encode_labels(
 
 def make_loaders(
     data: HeteroData,
-    task: PredQLBaseTask,
+    task: RTGLBaseTask,
     batch_size: int,
     num_neighbors: list[int],
     binarize: bool=False,
@@ -147,7 +147,7 @@ def make_loaders(
     return loader_dict, mlb, le
 
 
-def compute_pos_weight(task: PredQLBaseTask) -> float:
+def compute_pos_weight(task: RTGLBaseTask) -> float:
     if task.task_type != TaskType.BINARY_CLASSIFICATION:
         raise ValueError("Pos weights can only be computed for binary classification tasks.")
 

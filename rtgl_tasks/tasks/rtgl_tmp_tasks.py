@@ -1,16 +1,16 @@
-"""Collection of pre-defined PredQL temporal tasks on ctu datasets."""
+"""Collection of pre-defined RTGL temporal tasks on ctu datasets."""
 
 import pandas as pd
 from relbench.base import TaskType
 from relbench.datasets import get_dataset
 
-from predql_tasks.base import PredQLTmpTask
+from rtgl_tasks.base import RTGLTmpTask
 
 ######### CTU tasks ##########
 
 ######### DATASET: ctu-sfscores #########
 
-class SFScoresBusinessesScoresTmpTask(PredQLTmpTask):
+class SFScoresBusinessesScoresTmpTask(RTGLTmpTask):
     """Predict maximum future scores for each business in the next 182 days."""
 
     dataset = get_dataset("ctu-sfscores", download=False)
@@ -21,14 +21,14 @@ class SFScoresBusinessesScoresTmpTask(PredQLTmpTask):
     val_timestamp = pd.Timestamp("2015-12-17")
     test_timestamp = pd.Timestamp("2016-06-16")
 
-    predql_query = """
+    rtgl_query = """
           PREDICT MAX(inspections.score, 0, 182, DAYS)
           FOR EACH businesses.*;
      """
 
 ######### DATASET: сtu-stats #########
 
-class StatsUserBadgeTmpTask(PredQLTmpTask):
+class StatsUserBadgeTmpTask(RTGLTmpTask):
     """Predict whether a user earns any badge in the next 91 days."""
 
     dataset = get_dataset("ctu-stats", download=False)
@@ -39,13 +39,13 @@ class StatsUserBadgeTmpTask(PredQLTmpTask):
     val_timestamp = pd.Timestamp("2014-03-01")
     test_timestamp = pd.Timestamp("2014-06-01")
 
-    predql_query = """
+    rtgl_query = """
           PREDICT COUNT(badges.*, 0, 91, DAYS) != 0
           FOR EACH users.*;
      """
 
 
-class StatsUserEngagementTmpTask(PredQLTmpTask):
+class StatsUserEngagementTmpTask(RTGLTmpTask):
     """Predict whether a user is active in the next 91 days."""
 
     dataset = get_dataset("ctu-stats", download=False)
@@ -56,7 +56,7 @@ class StatsUserEngagementTmpTask(PredQLTmpTask):
     val_timestamp = pd.Timestamp("2014-03-01")
     test_timestamp = pd.Timestamp("2014-06-01")
 
-    predql_query = """
+    rtgl_query = """
           PREDICT COUNT(votes.*, 0, 91, DAYS) != 0
                OR COUNT(posts.*, 0, 91, DAYS) != 0
                OR COUNT(comments.*, 0, 91, DAYS) != 0
@@ -67,7 +67,7 @@ class StatsUserEngagementTmpTask(PredQLTmpTask):
      """
 
 
-class StatsPostVotesTmpTask(PredQLTmpTask):
+class StatsPostVotesTmpTask(RTGLTmpTask):
     """Predict future upvote count for each valid question post."""
 
     dataset = get_dataset("ctu-stats", download=False)
@@ -78,7 +78,7 @@ class StatsPostVotesTmpTask(PredQLTmpTask):
     val_timestamp = pd.Timestamp("2014-03-01")
     test_timestamp = pd.Timestamp("2014-06-01")
 
-    predql_query = """
+    rtgl_query = """
           PREDICT COUNT_DISTINCT(votes.*
                WHERE votes.votetypeid == 2, 0, 91, DAYS)
           FOR EACH posts.* WHERE posts.PostTypeId == 1
@@ -87,7 +87,7 @@ class StatsPostVotesTmpTask(PredQLTmpTask):
      """
 
 
-class StatsUserPostCommentTmpTask(PredQLTmpTask):
+class StatsUserPostCommentTmpTask(RTGLTmpTask):
     """Predict posts each user will comment on in the next 91 days."""
 
     dataset = get_dataset("ctu-stats", download=False)
@@ -99,7 +99,7 @@ class StatsUserPostCommentTmpTask(PredQLTmpTask):
     val_timestamp = pd.Timestamp("2014-03-01")
     test_timestamp = pd.Timestamp("2014-06-01")
 
-    predql_query = """
+    rtgl_query = """
           PREDICT LIST_DISTINCT(comments.FK_posts_PostId
                WHERE posts.owneruserid IS NOT NULL
                  AND posts.owneruserid != -1, 0, 91, DAYS)
@@ -107,7 +107,7 @@ class StatsUserPostCommentTmpTask(PredQLTmpTask):
      """
 
 
-class StatsPostPostRelatedTmpTask(PredQLTmpTask):
+class StatsPostPostRelatedTmpTask(RTGLTmpTask):
     """Predict related posts linked from each post in the next 91 days."""
 
     dataset = get_dataset("ctu-stats", download=False)
@@ -119,14 +119,14 @@ class StatsPostPostRelatedTmpTask(PredQLTmpTask):
     val_timestamp = pd.Timestamp("2014-03-01")
     test_timestamp = pd.Timestamp("2014-06-01")
 
-    predql_query = """
+    rtgl_query = """
           PREDICT LIST_DISTINCT(postLinks.FK_posts_RelatedPostId, 0, 91, DAYS)
           FOR EACH posts.*;
      """
 
 ######### DATASET: сtu-seznam #########
 
-class SeznamClientOutOfWalletTmpTask(PredQLTmpTask):
+class SeznamClientOutOfWalletTmpTask(RTGLTmpTask):
     """Predict whether a client will spend outside wallet in the next 30 days."""
 
     dataset = get_dataset("ctu-seznam", download=False)
@@ -138,7 +138,7 @@ class SeznamClientOutOfWalletTmpTask(PredQLTmpTask):
     val_timestamp = pd.Timestamp("2015-03-01")
     test_timestamp = pd.Timestamp("2015-07-01")
 
-    predql_query = """
+    rtgl_query = """
           PREDICT COUNT(probehnuto_mimo_penezenku.*, 0, 30, DAYS) != 0
           FOR EACH client.*
           ASSUMING COUNT(probehnuto.*, -inf, 0, DAYS) != 0
@@ -148,7 +148,7 @@ class SeznamClientOutOfWalletTmpTask(PredQLTmpTask):
      """
 
 
-class SeznamClientServisTmpTask(PredQLTmpTask):
+class SeznamClientServisTmpTask(RTGLTmpTask):
     """Predict services a client will use in the next 30 days."""
 
     dataset = get_dataset("ctu-seznam", download=False)
@@ -160,7 +160,7 @@ class SeznamClientServisTmpTask(PredQLTmpTask):
     val_timestamp = pd.Timestamp("2015-03-01")
     test_timestamp = pd.Timestamp("2015-07-01")
 
-    predql_query = """
+    rtgl_query = """
           PREDICT LIST_DISTINCT(probehnuto.sluzba, 0, 30, DAYS)
           FOR EACH client.*
           ASSUMING COUNT(probehnuto.*, -inf, 0, DAYS) != 0
@@ -169,7 +169,7 @@ class SeznamClientServisTmpTask(PredQLTmpTask):
      """
 
 
-class SeznamClientFirstServisTmpTask(PredQLTmpTask):
+class SeznamClientFirstServisTmpTask(RTGLTmpTask):
     """Predict the first sercis a client will use in the next 30 days."""
 
     dataset = get_dataset("ctu-seznam", download=False)
@@ -181,7 +181,7 @@ class SeznamClientFirstServisTmpTask(PredQLTmpTask):
     val_timestamp = pd.Timestamp("2015-03-01")
     test_timestamp = pd.Timestamp("2015-07-01")
 
-    predql_query = """
+    rtgl_query = """
           PREDICT FIRST(probehnuto.sluzba, 0, 30, DAYS)
           FOR EACH client.*
           ASSUMING COUNT(probehnuto.*, -inf, 0, DAYS) != 0
@@ -190,7 +190,7 @@ class SeznamClientFirstServisTmpTask(PredQLTmpTask):
      """
 
 
-class SeznamClientSpendingTmpTask(PredQLTmpTask):
+class SeznamClientSpendingTmpTask(RTGLTmpTask):
     """Predict client spending amount in the next 30 days."""
 
     dataset = get_dataset("ctu-seznam", download=False)
@@ -202,7 +202,7 @@ class SeznamClientSpendingTmpTask(PredQLTmpTask):
     val_timestamp = pd.Timestamp("2015-03-01")
     test_timestamp = pd.Timestamp("2015-07-01")
 
-    predql_query = """
+    rtgl_query = """
           PREDICT SUM(probehnuto.kc_proklikano, 0, 30, DAYS)
           FOR EACH client.*
           ASSUMING COUNT(probehnuto.*, -inf, 0, DAYS) != 0
@@ -210,11 +210,11 @@ class SeznamClientSpendingTmpTask(PredQLTmpTask):
                 OR COUNT(probehnuto_mimo_penezenku.*, -inf, 0, DAYS) != 0;
      """
 
-######### RelBench tasks (defined with PredQL) #########
+######### RelBench tasks (defined with RTGL) #########
 
 ######### DATASET: rel-f1 #########
 
-class RelF1DriverDNFTmpTask(PredQLTmpTask):
+class RelF1DriverDNFTmpTask(RTGLTmpTask):
     """For each driver predict the if they will DNF (did not finish) a race in the next 1 month."""
 
     dataset = get_dataset("rel-f1", download=False)
@@ -226,7 +226,7 @@ class RelF1DriverDNFTmpTask(PredQLTmpTask):
     val_timestamp = dataset.val_timestamp
     test_timestamp = dataset.test_timestamp
 
-    predql_query = """
+    rtgl_query = """
           PREDICT MAX(results.statusId, 0, 30, DAYS) != 1
           FOR EACH drivers.*
           ASSUMING COUNT(results.*, -365, 0, DAYS) != 0
@@ -234,7 +234,7 @@ class RelF1DriverDNFTmpTask(PredQLTmpTask):
      """
 
 
-class RelF1DriverTop3TmpTask(PredQLTmpTask):
+class RelF1DriverTop3TmpTask(RTGLTmpTask):
     """For each driver predict if they will qualify in the top-3 for a race in the next 1 month."""
 
     dataset = get_dataset("rel-f1", download=False)
@@ -246,14 +246,14 @@ class RelF1DriverTop3TmpTask(PredQLTmpTask):
     val_timestamp = dataset.val_timestamp
     test_timestamp = dataset.test_timestamp
 
-    predql_query = """
+    rtgl_query = """
           PREDICT MIN(qualifying.position, 0, 30, DAYS) <= 3
           FOR EACH drivers.*
           WHERE MIN(qualifying.position, 0, 30, DAYS) IS NOT NULL;
      """
 
 
-class RelF1DriverPositionTmpTask(PredQLTmpTask):
+class RelF1DriverPositionTmpTask(RTGLTmpTask):
     """Predict the average finishing position of each driver all races in the next 2 months."""
 
     dataset = get_dataset("rel-f1", download=False)
@@ -265,14 +265,14 @@ class RelF1DriverPositionTmpTask(PredQLTmpTask):
     val_timestamp = dataset.val_timestamp
     test_timestamp = dataset.test_timestamp
 
-    predql_query = """
+    rtgl_query = """
           PREDICT AVG(results.positionOrder, 0, 60, DAYS)
           FOR EACH drivers.*;
      """
 
 ######### DATASET: rel-stack #########
 
-class RelStackUserEngagementTmpTask(PredQLTmpTask):
+class RelStackUserEngagementTmpTask(RTGLTmpTask):
     """For each user predict if a user will make any votes, posts, or comments in the next 3 months."""
 
     dataset = get_dataset("rel-stack", download=False)
@@ -283,7 +283,7 @@ class RelStackUserEngagementTmpTask(PredQLTmpTask):
     val_timestamp = dataset.val_timestamp
     test_timestamp = dataset.test_timestamp
 
-    predql_query = """
+    rtgl_query = """
           PREDICT COUNT(votes.*, 0, 91, DAYS) != 0
                OR COUNT(posts.*, 0, 91, DAYS) != 0
                OR COUNT(comments.*, 0, 91, DAYS) != 0
@@ -294,7 +294,7 @@ class RelStackUserEngagementTmpTask(PredQLTmpTask):
      """
 
 
-class RelStackUserBadgeTmpTask(PredQLTmpTask):
+class RelStackUserBadgeTmpTask(RTGLTmpTask):
     """For each user predict if a user will receive a new badge in the next 3 months."""
 
     dataset = get_dataset("rel-stack", download=False)
@@ -305,13 +305,13 @@ class RelStackUserBadgeTmpTask(PredQLTmpTask):
     val_timestamp = dataset.val_timestamp
     test_timestamp = dataset.test_timestamp
 
-    predql_query = """
+    rtgl_query = """
           PREDICT COUNT(badges.*, 0, 91, DAYS) != 0
           FOR EACH users.*;
      """
 
 
-class RelStackPostVotesTmpTask(PredQLTmpTask):
+class RelStackPostVotesTmpTask(RTGLTmpTask):
     """For each user post predict how many votes it will receive in the next 3 months."""
 
     dataset = get_dataset("rel-stack", download=False)
@@ -322,7 +322,7 @@ class RelStackPostVotesTmpTask(PredQLTmpTask):
     val_timestamp = dataset.val_timestamp
     test_timestamp = dataset.test_timestamp
 
-    predql_query = """
+    rtgl_query = """
           PREDICT COUNT_DISTINCT(votes.* WHERE votes.votetypeid == 2, 0, 91, DAYS)
           FOR EACH posts.* WHERE posts.PostTypeId == 1
                              AND posts.OwnerUserId IS NOT NULL
@@ -330,7 +330,7 @@ class RelStackPostVotesTmpTask(PredQLTmpTask):
      """
 
 
-class RelStackUserPostCommentTmpTask(PredQLTmpTask):
+class RelStackUserPostCommentTmpTask(RTGLTmpTask):
     """Predict a list of existing posts that a user will comment in the next two months."""
 
     dataset = get_dataset("rel-stack", download=False)
@@ -342,7 +342,7 @@ class RelStackUserPostCommentTmpTask(PredQLTmpTask):
     val_timestamp = dataset.val_timestamp
     test_timestamp = dataset.test_timestamp
 
-    predql_query = """
+    rtgl_query = """
           PREDICT LIST_DISTINCT(comments.PostId
                WHERE posts.owneruserid IS NOT NULL
                     AND posts.owneruserid != -1, 0, 91, DAYS)
@@ -350,7 +350,7 @@ class RelStackUserPostCommentTmpTask(PredQLTmpTask):
      """
 
 
-class RelStackPostPostRelatedTmpTask(PredQLTmpTask):
+class RelStackPostPostRelatedTmpTask(RTGLTmpTask):
     """Predict a list of existing posts that users will link a given post to in the next two months."""
 
     dataset = get_dataset("rel-stack", download=False)
@@ -362,7 +362,7 @@ class RelStackPostPostRelatedTmpTask(PredQLTmpTask):
     val_timestamp = dataset.val_timestamp
     test_timestamp = dataset.test_timestamp
 
-    predql_query = """
+    rtgl_query = """
           PREDICT LIST_DISTINCT(postLinks.RelatedPostId, 0, 91, DAYS)
           FOR EACH posts.*;
      """

@@ -1,11 +1,11 @@
-"""Base PredQL task class."""
+"""Base RTGL task class."""
 
 from abc import ABC, abstractmethod
 from functools import cache
 
 import numpy as np
-from predql.base import Table
-from predql.converter import Converter
+from rtgl.base import Table
+from rtgl.converter import Converter
 from relbench.base import Dataset, TaskType
 from relbench.metrics import (
     accuracy,
@@ -24,13 +24,13 @@ from relbench.metrics import (
 )
 
 
-class PredQLBaseTask(ABC):
-    r"""Base PredQL task class with share attributes and methods.
+class RTGLBaseTask(ABC):
+    r"""Base RTGL task class with share attributes and methods.
 
     Attributes:
-        converter (Converter): Converter to convert the PredQL query to a task table (Default=None).
+        converter (Converter): Converter to convert the RTGL query to a task table (Default=None).
         dataset (Dataset): Dataset to get the database for the task.
-        predql_query (str): PredQL query to convert to a task table.
+        rtgl_query (str): RTGL query to convert to a task table.
         task_type (TaskType): Task type of the task.
         entity_table (str): Name of the entity table in the database.
         entity_col (str): Name of the entity column in the task table (Default="fk").
@@ -39,7 +39,7 @@ class PredQLBaseTask(ABC):
     # to be set by subclasses
     converter: Converter=None
     dataset: Dataset
-    predql_query: str
+    rtgl_query: str
     task_type: TaskType
     entity_table: str
     # for LINK_PREDICTION tasks

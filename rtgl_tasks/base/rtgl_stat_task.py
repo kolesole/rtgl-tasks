@@ -1,16 +1,16 @@
-"""Static PredQL task class."""
+"""Static RTGL task class."""
 
 from copy import deepcopy
 
 import numpy as np
-from predql.base import Table
-from predql.converter import SConverter
+from rtgl.base import Table
+from rtgl.converter import SConverter
 
-from .predql_base_task import PredQLBaseTask
+from .rtgl_base_task import RTGLBaseTask
 
 
-class PredQLStatTask(PredQLBaseTask):
-    r"""Static PredQL task class.
+class RTGLStatTask(RTGLBaseTask):
+    r"""Static RTGL task class.
 
     This class is used for classic static tasks without time predictions.
 
@@ -30,7 +30,7 @@ class PredQLStatTask(PredQLBaseTask):
             self.converter = SConverter(self.dataset.get_db(upto_test_timestamp=False))
 
         if self.target_table is None:
-            self.target_table = self.converter.convert(self.predql_query, execute=True)
+            self.target_table = self.converter.convert(self.rtgl_query, execute=True)
 
         table = deepcopy(self.target_table)
 

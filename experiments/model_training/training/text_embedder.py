@@ -11,7 +11,7 @@ class TextEmbedder:
         model_name: str,
         device: torch.device,
         hf_token: str=None,
-        cache_dir: str="./cache_predql"
+        cache_dir: str="./cache_rtgl"
     ) -> None:
         set_hf_token(hf_token)
 

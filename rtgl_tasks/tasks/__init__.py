@@ -1,6 +1,6 @@
-"""PredQL pre-defined tasks."""
+"""RTGL pre-defined tasks."""
 
-from .predql_stat_tasks import (
+from .rtgl_stat_tasks import (
     GrantsAwardsInstitutionStatTask,
     GrantsCountInstitutionAwardsStatTask,
     GrantsOrganizationAwardsAmountStatTask,
@@ -12,8 +12,8 @@ from .predql_stat_tasks import (
     StatsUserPostCommentStatTask,
     StatsUserReputationStatTask,
 )
-from .predql_tmp_tasks import (
-    ######### RelBench tasks (defined with PredQL)
+from .rtgl_tmp_tasks import (
+    ######### RelBench tasks (defined with RTGL)
     RelF1DriverDNFTmpTask,
     RelF1DriverPositionTmpTask,
     RelF1DriverTop3TmpTask,

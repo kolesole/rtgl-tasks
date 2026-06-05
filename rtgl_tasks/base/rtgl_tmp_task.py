@@ -1,16 +1,16 @@
-"""Temporal PredQL task class."""
+"""Temporal RTGL task class."""
 
 from functools import cached_property
 
 import pandas as pd
-from predql.base import Table
-from predql.converter import TConverter
+from rtgl.base import Table
+from rtgl.converter import TConverter
 
-from .predql_base_task import PredQLBaseTask
+from .rtgl_base_task import RTGLBaseTask
 
 
-class PredQLTmpTask(PredQLBaseTask):
-    r"""Temporal PredQL task class.
+class RTGLTmpTask(RTGLBaseTask):
+    r"""Temporal RTGL task class.
 
     This class is used for temporal tasks with time predictions.
 
@@ -103,4 +103,4 @@ class PredQLTmpTask(PredQLBaseTask):
 
         self.converter.set_timestamps(timestamps)
 
-        return self.converter.convert(self.predql_query, execute=True)
+        return self.converter.convert(self.rtgl_query, execute=True)

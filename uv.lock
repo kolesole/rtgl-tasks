@@ -2118,80 +2118,6 @@ wheels = [
 ]
 
 [[package]]
-name = "predql"
-version = "0.0.2"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "antlr4-python3-runtime" },
-    { name = "duckdb" },
-    { name = "pandas" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/4a/e0/d4ec8df01d7955f5f6c4c6b5a696517f47344131feb81a1a0c98fd26f2dd/predql-0.0.2.tar.gz", hash = "sha256:5db93f85bc0cb10f7c252052ac4cc822606b2f233f088dcd076b8613f4af96d8", size = 78103, upload-time = "2026-04-13T23:18:35.006Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/dc/8c/bdb49526c6bf16b6c228b4a160eb56c4ca0df54ca5ce944d668675a5e2e5/predql-0.0.2-py3-none-any.whl", hash = "sha256:295fdb23782da3a0049bbd74a9ea67aaacb4a875a2636d89f78f880bfdf057ae", size = 88626, upload-time = "2026-04-13T23:18:33.781Z" },
-]
-
-[[package]]
-name = "predql-tasks"
-version = "0.1.0"
-source = { editable = "." }
-dependencies = [
-    { name = "predql" },
-    { name = "redelex" },
-    { name = "relbench" },
-]
-
-[package.optional-dependencies]
-dev = [
-    { name = "ruff" },
-    { name = "tqdm" },
-]
-notebook = [
-    { name = "ipykernel" },
-    { name = "ipywidgets" },
-    { name = "jupyter" },
-]
-torch = [
-    { name = "matplotlib" },
-    { name = "numpy" },
-    { name = "pyg-lib" },
-    { name = "pytorch-frame" },
-    { name = "scikit-learn" },
-    { name = "sentence-transformers" },
-    { name = "torch" },
-    { name = "torch-cluster" },
-    { name = "torch-geometric" },
-    { name = "torch-scatter" },
-    { name = "torch-sparse" },
-    { name = "torch-spline-conv" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "ipykernel", marker = "extra == 'notebook'", specifier = ">=7.1.0" },
-    { name = "ipywidgets", marker = "extra == 'notebook'", specifier = ">=8.1.0" },
-    { name = "jupyter", marker = "extra == 'notebook'", specifier = ">=1.0.0" },
-    { name = "matplotlib", marker = "extra == 'torch'" },
-    { name = "numpy", marker = "extra == 'torch'" },
-    { name = "predql", specifier = "==0.0.2" },
-    { name = "pyg-lib", marker = "extra == 'torch'", specifier = ">=0.4.0" },
-    { name = "pytorch-frame", marker = "extra == 'torch'", specifier = ">=0.2.5" },
-    { name = "redelex" },
-    { name = "relbench", specifier = ">=1.1.0" },
-    { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.14.10" },
-    { name = "scikit-learn", marker = "extra == 'torch'" },
-    { name = "sentence-transformers", marker = "extra == 'torch'" },
-    { name = "torch", marker = "extra == 'torch'", specifier = "==2.4.0" },
-    { name = "torch-cluster", marker = "extra == 'torch'", specifier = ">=1.6.3" },
-    { name = "torch-geometric", marker = "extra == 'torch'", specifier = ">=2.6.1" },
-    { name = "torch-scatter", marker = "extra == 'torch'", specifier = ">=2.1.2" },
-    { name = "torch-sparse", marker = "extra == 'torch'", specifier = ">=0.6.18" },
-    { name = "torch-spline-conv", marker = "extra == 'torch'", specifier = ">=1.2.2" },
-    { name = "tqdm", marker = "extra == 'dev'", specifier = ">=4.66.0" },
-]
-provides-extras = ["notebook", "dev", "torch"]
-
-[[package]]
 name = "prometheus-client"
 version = "0.24.1"
 source = { registry = "https://pypi.org/simple" }
@@ -2854,6 +2780,96 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/20/53/7c7e784abfa500a2b6b583b147ee4bb5a2b3747a9166bab52fec4b5b5e7d/rpds_py-0.30.0-cp314-cp314t-win32.whl", hash = "sha256:dc824125c72246d924f7f796b4f63c1e9dc810c7d9e2355864b3c3a73d59ade0", size = 211570, upload-time = "2025-11-30T20:24:12.735Z" },
     { url = "https://files.pythonhosted.org/packages/d0/02/fa464cdfbe6b26e0600b62c528b72d8608f5cc49f96b8d6e38c95d60c676/rpds_py-0.30.0-cp314-cp314t-win_amd64.whl", hash = "sha256:27f4b0e92de5bfbc6f86e43959e6edd1425c33b5e69aab0984a72047f2bcf1e3", size = 226532, upload-time = "2025-11-30T20:24:14.634Z" },
 ]
+
+[[package]]
+name = "rtgl"
+version = "0.0.4"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "antlr4-python3-runtime" },
+    { name = "duckdb" },
+    { name = "pandas" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/21/97/5224bc0fdfa998a4ac4b20b799cff117deb76796e05dc1605edc23c02f53/rtgl-0.0.4.tar.gz", hash = "sha256:8d428e9b8750ffb86188fb8c97ee7c0ab794fd50cb1231bd734e811dba9dc222", size = 80232, upload-time = "2026-06-04T23:49:11.03Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/77/c5/681be595ac510676c5dce2890e7b04fd37f7cad3cc67b565cf82b1ec72ea/rtgl-0.0.4-py3-none-any.whl", hash = "sha256:9df321b95260d3b60ab1c46ac6c076c6379705fb716d63cd7afc4062f0c1cef8", size = 90766, upload-time = "2026-06-04T23:49:09.611Z" },
+]
+
+[[package]]
+name = "rtgl-tasks"
+version = "0.0.1"
+source = { editable = "." }
+dependencies = [
+    { name = "numpy" },
+    { name = "redelex" },
+    { name = "relbench" },
+    { name = "rtgl" },
+]
+
+[package.optional-dependencies]
+dev = [
+    { name = "ipykernel" },
+    { name = "ipywidgets" },
+    { name = "jupyter" },
+    { name = "matplotlib" },
+    { name = "pyg-lib" },
+    { name = "pytorch-frame" },
+    { name = "ruff" },
+    { name = "scikit-learn" },
+    { name = "sentence-transformers" },
+    { name = "torch" },
+    { name = "torch-cluster" },
+    { name = "torch-geometric" },
+    { name = "torch-scatter" },
+    { name = "torch-sparse" },
+    { name = "torch-spline-conv" },
+    { name = "tqdm" },
+]
+notebook = [
+    { name = "ipykernel" },
+    { name = "ipywidgets" },
+    { name = "jupyter" },
+]
+torch = [
+    { name = "matplotlib" },
+    { name = "pyg-lib" },
+    { name = "pytorch-frame" },
+    { name = "scikit-learn" },
+    { name = "sentence-transformers" },
+    { name = "torch" },
+    { name = "torch-cluster" },
+    { name = "torch-geometric" },
+    { name = "torch-scatter" },
+    { name = "torch-sparse" },
+    { name = "torch-spline-conv" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "ipykernel", marker = "extra == 'notebook'", specifier = ">=7.1.0" },
+    { name = "ipywidgets", marker = "extra == 'notebook'", specifier = ">=8.1.0" },
+    { name = "jupyter", marker = "extra == 'notebook'", specifier = ">=1.0.0" },
+    { name = "matplotlib", marker = "extra == 'torch'" },
+    { name = "numpy" },
+    { name = "pyg-lib", marker = "extra == 'torch'", specifier = ">=0.4.0" },
+    { name = "pytorch-frame", marker = "extra == 'torch'", specifier = ">=0.2.5" },
+    { name = "redelex" },
+    { name = "relbench", specifier = ">=1.1.0" },
+    { name = "rtgl", specifier = "==0.0.4" },
+    { name = "rtgl-tasks", extras = ["notebook"], marker = "extra == 'dev'" },
+    { name = "rtgl-tasks", extras = ["torch"], marker = "extra == 'dev'" },
+    { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.14.10" },
+    { name = "scikit-learn", marker = "extra == 'torch'" },
+    { name = "sentence-transformers", marker = "extra == 'torch'" },
+    { name = "torch", marker = "extra == 'torch'", specifier = "==2.4.0" },
+    { name = "torch-cluster", marker = "extra == 'torch'", specifier = ">=1.6.3" },
+    { name = "torch-geometric", marker = "extra == 'torch'", specifier = ">=2.6.1" },
+    { name = "torch-scatter", marker = "extra == 'torch'", specifier = ">=2.1.2" },
+    { name = "torch-sparse", marker = "extra == 'torch'", specifier = ">=0.6.18" },
+    { name = "torch-spline-conv", marker = "extra == 'torch'", specifier = ">=1.2.2" },
+    { name = "tqdm", marker = "extra == 'dev'", specifier = ">=4.66.0" },
+]
+provides-extras = ["notebook", "torch", "dev"]
 
 [[package]]
 name = "ruff"
