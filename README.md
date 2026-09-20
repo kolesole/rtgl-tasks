@@ -12,8 +12,8 @@ The central goal is to define deep learning tasks (including regression, binary/
 
 ## 📁 Repository Structure
 
-- [`rtgl-tasks/`](./rtgl-tasks/): Contains the core logic for task definition and generation.
-  - [`base/`](./rtgl-tasks/base/): Base classes for defining tasks ([`RTGLBaseTask`](./rtgl_tasks/base/rtgl_base_task.py), [`RTGLStatTask`](./rtgl_tasks/base/rtgl_stat_task.py), [`RTGLTmpTask`](./rtgl_tasks/base/rtgl_tmp_task.py)).
+- [`rtgl-tasks/`](./rtgl_tasks/): Contains the core logic for task definition and generation.
+  - [`base/`](./rtgl_tasks/base/): Base classes for defining tasks ([`RTGLBaseTask`](./rtgl_tasks/base/rtgl_base_task.py), [`RTGLStatTask`](./rtgl_tasks/base/rtgl_stat_task.py), [`RTGLTmpTask`](./rtgl_tasks/base/rtgl_tmp_task.py)).
   - [`tasks/`](./rtgl_tasks/tasks/): Implementations of specific static and temporal tasks.
     - [`redelex_tasks/`](./rtgl_tasks/tasks/redelex_tasks/): Newly defined tasks based on datasets from [CTU relational](https://relational.fel.cvut.cz/) utilizing [*ReDeLEx*](https://github.com/jakubpeleska/redelex).
     - [`relbench_tasks/`](./rtgl_tasks/tasks/relbench_tasks/): Re-defined [*RelBench*](https://github.com/snap-stanford/relbench) tasks.
@@ -54,7 +54,7 @@ Detailed training configurations can be found in the config file [`config.yml`](
 
 ### 📔 Notebooks
 
-The [`task_execution.ipynb`](./experiments/task_generation/relational_execution.ipynb) notebook is used to showcase tables from generated tasks.
+The [`task_execution.ipynb`](./experiments/task_generation/task_execution.ipynb) notebook is used to showcase tables from generated tasks.
 
 The [`notebooks/`](./experiments/model_training/notebooks/) directory contains various Jupyter notebooks for testing different task types:
 - Temporal Binary Classification ([`relational_fel_bc.ipynb`](./experiments/model_training/notebooks/relational_fel_bc.ipynb), [`relbench_bc.ipynb`](./experiments/model_training/notebooks/relbench_bc.ipynb))
