@@ -4,24 +4,30 @@ from abc import ABC, abstractmethod
 from functools import cache
 
 import numpy as np
+from relbench.base import Dataset, TaskType
 from rtgl.base import Table
 from rtgl.converter import Converter
-from relbench.base import Dataset, TaskType
-from relbench.metrics import (
-    accuracy,
-    average_precision,
-    f1,
-    macro_f1,
-    mae,
-    micro_f1,
-    mse,
-    multilabel_auprc_macro,
-    multilabel_auprc_micro,
-    multilabel_f1_macro,
-    multilabel_f1_micro,
-    r2,
-    roc_auc,
+from sklearn.metrics import (
+    accuracy_score,
+    average_precision_score,
+    f1_score,
+    mean_absolute_error,
+    mean_squared_error,
+    r2_score,
+    roc_auc_score,
 )
+
+
+def get_redelex_path(dataset: str) -> str:
+    r"""Wrap the dataset name with the redelex repo.
+
+    Args:
+        dataset (str): Dataset name.
+
+    Returns:
+        out (str): Dataset name with prefix.
+    """
+    return f"stanford-star/redelex/{dataset}"
 
 
 class RTGLBaseTask(ABC):
@@ -42,7 +48,7 @@ class RTGLBaseTask(ABC):
     rtgl_query: str
     task_type: TaskType
     entity_table: str
-    # for LINK_PREDICTION tasks
+    # for RECOMMENDATION tasks
     dst_table: str=None
     # same for all tasks
     entity_col: str="fk"
@@ -78,35 +84,35 @@ class RTGLBaseTask(ABC):
         match self.task_type:
             case TaskType.REGRESSION:
                 return {
-                    "mae": mae(labels, logits),
-                    "mse": mse(labels, logits),
-                    "r2": r2(labels, logits)
+                    "mae": mean_absolute_error(labels, logits),
+                    "mse": mean_squared_error(labels, logits),
+                    "r2": r2_score(labels, logits)
                 }
             case TaskType.BINARY_CLASSIFICATION:
                 return {
-                    "accuracy": accuracy(labels, logits),
-                    "roc_auc": roc_auc(labels, logits),
-                    "average_precision": average_precision(labels, logits),
-                    "f1": f1(labels, logits)
+                    "accuracy": accuracy_score(labels, logits > 0.5),
+                    "roc_auc": roc_auc_score(labels, logits),
+                    "average_precision": average_precision_score(labels, logits),
+                    "f1": f1_score(labels, logits >= 0.5)
                 }
             case TaskType.MULTICLASS_CLASSIFICATION:
                 return {
-                    "accuracy": accuracy(labels, logits),
-                    "macro_f1": macro_f1(labels, logits),
-                    "micro_f1": micro_f1(labels, logits)
+                    "accuracy": accuracy_score(labels, logits.argmax(axis=1)),
+                    "macro_f1": f1_score(labels, logits.argmax(axis=1), average="macro"),
+                    "micro_f1": f1_score(labels, logits.argmax(axis=1), average="micro")
                 }
             case TaskType.MULTILABEL_CLASSIFICATION:
                 return {
-                    "auprc_macro": multilabel_auprc_macro(labels, logits),
-                    "auprc_micro": multilabel_auprc_micro(labels, logits),
-                    "f1_macro": multilabel_f1_macro(labels, logits),
-                    "f1_micro": multilabel_f1_micro(labels, logits)
+                    "auprc_macro": average_precision_score(labels, logits, average="macro"),
+                    "auprc_micro": average_precision_score(labels, logits, average="micro"),
+                    "f1_macro": f1_score(labels, logits > 0.5, average="macro"),
+                    "f1_micro": f1_score(labels, logits > 0.5, average="micro")
                 }
-            case TaskType.LINK_PREDICTION:
+            case TaskType.RECOMMENDATION:
                 return {
-                    "roc_auc": roc_auc(labels, logits),
-                    "average_precision": average_precision(labels, logits),
-                    "f1": f1(labels, logits)
+                    "roc_auc": roc_auc_score(labels, logits),
+                    "average_precision": average_precision_score(labels, logits),
+                    "f1": f1_score(labels, logits >= 0.5)
                 }
             case _:
                 pass

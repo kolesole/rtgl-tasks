@@ -15,6 +15,8 @@ The central goal is to define deep learning tasks (including regression, binary/
 - [`rtgl-tasks/`](./rtgl-tasks/): Contains the core logic for task definition and generation.
   - [`base/`](./rtgl-tasks/base/): Base classes for defining tasks ([`RTGLBaseTask`](./rtgl_tasks/base/rtgl_base_task.py), [`RTGLStatTask`](./rtgl_tasks/base/rtgl_stat_task.py), [`RTGLTmpTask`](./rtgl_tasks/base/rtgl_tmp_task.py)).
   - [`tasks/`](./rtgl_tasks/tasks/): Implementations of specific static and temporal tasks.
+    - [`redelex_tasks/`](./rtgl_tasks/tasks/redelex_tasks/): Newly defined tasks based on datasets from [CTU relational](https://relational.fel.cvut.cz/) utilizing [*ReDeLEx*](https://github.com/jakubpeleska/redelex).
+    - [`relbench_tasks/`](./rtgl_tasks/tasks/relbench_tasks/): Re-defined [*RelBench*](https://github.com/snap-stanford/relbench) tasks.
 - [`experiments/`](./experiments/): Contains Jupyter notebooks and scripts for model training and task generation.
   - [`model_training/`](./experiments/model_training/): Scripts and notebooks for training GNNs like SAGE and HGT, including configuration files and utility functions.
   - [`task_generation/`](./experiments/task_generation/): Notebooks demonstrating how to generate tasks over relational databases.
@@ -52,7 +54,7 @@ Detailed training configurations can be found in the config file [`config.yml`](
 
 ### 📔 Notebooks
 
-The [`relational_fel.ipynb`](./experiments/task_generation/relational_fel.ipynb) notebook is used to analyze datasets and showcase tables from newly generated tasks.
+The [`task_execution.ipynb`](./experiments/task_generation/relational_execution.ipynb) notebook is used to showcase tables from generated tasks.
 
 The [`notebooks/`](./experiments/model_training/notebooks/) directory contains various Jupyter notebooks for testing different task types:
 - Temporal Binary Classification ([`relational_fel_bc.ipynb`](./experiments/model_training/notebooks/relational_fel_bc.ipynb), [`relbench_bc.ipynb`](./experiments/model_training/notebooks/relbench_bc.ipynb))
@@ -100,7 +102,7 @@ Reported metrics are averaged over 5 independent runs.
   </thead>
   <tbody>
     <tr style="text-align: center;">
-      <td><a href="./rtgl_tasks/tasks/rtgl_tmp_tasks.py#L217"><code>F1 Driver DNF (RelBench)</code></td>
+      <td><a href="./rtgl_tasks/tasks/relbench_tasks/f1.py#L11"><code>F1 Driver DNF (RelBench)</code></td>
       <td>
         For each driver predict if they will DNF (did not finish) a race in the next 1 month (Binary Classification)
       </td>
@@ -121,7 +123,7 @@ Reported metrics are averaged over 5 independent runs.
       <td><img src="plots/relbench_bc_hgt.png"/></td>
     </tr>
     <tr style="text-align: center;">
-      <td><a href="./rtgl_tasks/tasks/rtgl_tmp_tasks.py#L256"><code>F1 Driver Position (RelBench)</code></td>
+      <td><a href="./rtgl_tasks/tasks/relbench_tasks/f1.py#L50"><code>F1 Driver Position (RelBench)</code></td>
       <td>
         Predict the average finishing position of each driver across all races in the next 2 months (Regression)
       </td>
@@ -142,7 +144,7 @@ Reported metrics are averaged over 5 independent runs.
       <td><img src="plots/relbench_reg_hgt.png"/></td>
     </tr>
     <tr style="text-align: center;">
-      <td><a href="./rtgl_tasks/tasks/rtgl_tmp_tasks.py#L129"><code>Seznam Client Out of Wallet</code></td>
+      <td><a href="./rtgl_tasks/tasks/redelex_tasks/seznam.py#L11"><code>Seznam Client Out of Wallet</code></td>
       <td>
         Predict whether a client will spend outside their wallet in the next 30 days (Binary Classification)
       </td>
@@ -163,7 +165,7 @@ Reported metrics are averaged over 5 independent runs.
       <td><img src="plots/rel_fel_bc_hgt.png"/></td>
     </tr>
     <tr style="text-align: center;">
-      <td><a href="./rtgl_tasks/tasks/rtgl_tmp_tasks.py#L172"><code>Seznam Client First Service</code></td>
+      <td><a href="./rtgl_tasks/tasks/redelex_tasks/seznam.py#L54"><code>Seznam Client First Service</code></td>
       <td>
         Predict the first service a client will use in the next 30 days (Multiclass Classification)
       </td>
@@ -184,7 +186,7 @@ Reported metrics are averaged over 5 independent runs.
       <td><img src="plots/rel_fel_mcc_hgt.png"/></td>
     </tr>
     <tr style="text-align: center;">
-      <td><a href="./rtgl_tasks/tasks/rtgl_tmp_tasks.py#L151"><code>Seznam Client Services</code></td>
+      <td><a href="./rtgl_tasks/tasks/redelex_tasks/seznam.py#L33"><code>Seznam Client Services</code></td>
       <td>
         Predict the services a client will use in the next 30 days (Multilabel Classification)
       </td>
@@ -205,7 +207,7 @@ Reported metrics are averaged over 5 independent runs.
       <td><img src="plots/rel_fel_mlc_hgt.png"/></td>
     </tr>
     <tr style="text-align: center;">
-      <td><a href="./rtgl_tasks/tasks/rtgl_tmp_tasks.py#L193"><code>Seznam Client Spending</code></td>
+      <td><a href="./rtgl_tasks/tasks/redelex_tasks/seznam.py#L75"><code>Seznam Client Spending</code></td>
       <td>
         Predict client spending amount in the next 30 days (Regression)
       </td>
